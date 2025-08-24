@@ -1,4 +1,4 @@
-package com.digital.utils;
+package com.digital.util;
 
 
 import org.openqa.selenium.By;
