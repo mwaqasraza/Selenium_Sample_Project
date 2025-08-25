@@ -1,7 +1,6 @@
 package com.digital.ui.pages;
 
-// HomePage.java
-//package com.safeway.pages;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,77 +15,65 @@ public class HomePage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Global By Locators
-    private By signInLink = By.xpath("//*[@id=\"auth_signin_link\"]");
-    private By signInSidebarLink = By.xpath("//*[@id=\"signin-dropdown\"]/div/div/div/div[1]/button"); // Updated xpath
-    private By emailIdField = By.xpath("//input[@id='enterUsername']"); // Updated id
-    private By passwordField = By.xpath("//input[@id=\"password\"]"); // Updated id
-//    private By signInButton = By.xpath("//button[contains(text(), 'Sign in with password')]"); // Updated xpath
-    private By signInButton = By.xpath("//button[contains(text(), ' Sign in without a password ')]"); // Updated xpath
-    private By storeAddressLink = By.xpath("//div[@id='openFulfillmentModalButton']");
-    private By zipCodeField = By.xpath("//*[@id=\"storeFulfillmentModal\"]/div/div/div[2]/store-fulfillment-tabs/div/div[1]/input");
-    private By searchIcon = By.xpath("//*[@id=\"storeFulfillmentModal\"]/div/div/div[2]/store-fulfillment-tabs/div/div[1]/span");
-    private By deliveryTab = By.xpath("//*[@id=\"modal-tab-delivery\"]");
-    private By selectShopButton = By.xpath("//*[@id=\"fulfilmentDelivery\"]/div/div/store-card/div[2]/div/a");
-    private By searchBox = By.xpath("//input[@id=\"skip-main-content\"]");
-    private By broadwayAddressLink = By.xpath("/html/body/div[2]/div/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/global-header/div/div[2]/div[1]/secondary-bar/div[2]/div[1]/div[3]/span[1]");
-
+    //Global By Locators
+    private By signInLink = By.xpath("//button[@id='SignIn']");
+    private By signInSidebarLink = By.xpath("//a[@id='side-nav-sign-in']");
+    private By emailField = By.xpath("//input[@id='email']");
+    private By signInWithPasswordButton = By.xpath("//button[contains(text(),'Sign in with password')]");
+    private By storeAddress = By.xpath("//div[@id='openFulfillmentModalButton']");
+    private By zipCodeField = By.xpath("//*[@aria-labelledby='zipcode']");
+    private By searchIcon = By.xpath("//span[@aria-label='search Zipcode']");
+    private By deliveryTab = By.xpath("//a[@id='modal-tab-delivery-btn']");
+    private By shopButton = By.xpath("//a[text()=' Shop ']");
+    private By searchBox = By.xpath("//*[@name='q']");
 
     public HomePage(WebDriver driver) {
-//        this.driver = driver;
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    // Public getter methods for each element
+    //Getter Methods
     public WebElement getSignInLink() {
-        return wait.until(ExpectedConditions.elementToBeClickable(signInLink));
+        return driver.findElement(signInLink);
     }
 
     public WebElement getSignInSidebarLink() {
-        return wait.until(ExpectedConditions.elementToBeClickable(signInSidebarLink));
+        return driver.findElement(signInSidebarLink);
     }
 
-    public WebElement getEmailIdField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(emailIdField));
+    public WebElement getEmailField() {
+        return driver.findElement(emailField);
     }
 
-    public WebElement getPasswordField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));
+    public WebElement getSignInWithPasswordButton() {
+        return driver.findElement(signInWithPasswordButton);
     }
 
-    public WebElement getSignInButton() {
-        return wait.until(ExpectedConditions.elementToBeClickable(signInButton));
-    }
-
-    public WebElement getStoreAddressLink() {
-        return wait.until(ExpectedConditions.elementToBeClickable(storeAddressLink));
+    public WebElement getStoreAddress() {
+        return driver.findElement(storeAddress);
     }
 
     public WebElement getZipCodeField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(zipCodeField));
+        return driver.findElement(zipCodeField);
     }
 
     public WebElement getSearchIcon() {
-        return wait.until(ExpectedConditions.elementToBeClickable(searchIcon));
+        return driver.findElement(searchIcon);
     }
 
     public WebElement getDeliveryTab() {
-        return wait.until(ExpectedConditions.elementToBeClickable(deliveryTab));
+        return driver.findElement(deliveryTab);
     }
 
-    public WebElement getSelectShopButton() {
-        return wait.until(ExpectedConditions.elementToBeClickable(selectShopButton));
+    public WebElement getShopButton() {
+        return driver.findElement(shopButton);
     }
 
     public WebElement getSearchBox() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox));
-    }
-    public WebElement getBroadwayAddressLink() {
-        return wait.until(ExpectedConditions.elementToBeClickable(broadwayAddressLink));
+        return driver.findElement(searchBox);
     }
 
-
-    // Public action methods
+    //Action Methods
     public void clickSignInLink() {
         getSignInLink().click();
     }
@@ -95,20 +82,16 @@ public class HomePage {
         getSignInSidebarLink().click();
     }
 
-    public void enterEmailId(String email) {
-        getEmailIdField().sendKeys(email);
+    public void enterEmail(String email) {
+        getEmailField().sendKeys(email);
     }
 
-    public void enterPassword(String password) {
-        getPasswordField().sendKeys(password);
+    public void clickSignInWithPasswordButton() {
+        getSignInWithPasswordButton().click();
     }
 
-    public void clickSignInButton() {
-        getSignInButton().click();
-    }
-
-    public void clickStoreAddressLink() {
-        getStoreAddressLink().click();
+    public void clickStoreAddress() {
+        getStoreAddress().click();
     }
 
     public void enterZipCode(String zipCode) {
@@ -123,15 +106,11 @@ public class HomePage {
         getDeliveryTab().click();
     }
 
-    public void clickSelectShopButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(selectShopButton)).click();
+    public void clickShopButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(getShopButton())).click();
     }
 
-    public void enterSearchText(String text) {
-        getSearchBox().sendKeys(text);
-    }
-
-    public void clickBroadwayAddressLink() {
-        getBroadwayAddressLink().click();
+    public void enterSearchText(String searchText) {
+        getSearchBox().sendKeys(searchText);
     }
 }

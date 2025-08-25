@@ -1,10 +1,8 @@
 package com.digital.ui.pages;
 
-// CheckoutPage.java
-//package com.safeway.pages;
+
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,66 +15,47 @@ public class CheckoutPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By firstNameField = By.xpath("//input[@id='firstName']");
+    private By firstNameField = By.xpath("//input[@name='firstName']");
     private By lastNameField = By.xpath("//input[@id='lastName']");
     private By streetAddressField = By.xpath("//input[@id='streetAddress']");
     private By zipCodeField = By.xpath("//input[@id='zipCode']");
-    private By continueButton = By.xpath("//*[@id=\"update-address-continue\"]");
-    private By continueButton2 = By.xpath("//*[@id=\"deliveryInfoContent\"]/div/div/div[4]/div[1]/button");
-    private By continueButton3 = By.xpath("//*[@id=\"reserveSlotsContinue\"]");
-
-    private By fastestDeliveryTime = By.xpath("//*[@id=\"2\"]/app-reserveblock/div/div/div[3]/app-delivery-window-type/div/div[1]/div/div"); //Example
-    private By oneHourTimeslots = By.xpath("//*[contains(text(), '1 Hour Timeslots')]"); // Example, refine
-    private By continueInReserveTimeSlot = By.xpath("//button[contains(text(), 'Continue')]"); // Refine
-    private By orderSummary = By.xpath("//*[contains(text(), 'Order Summary')]"); // Refine
-    private By itemPreferencesSection = By.xpath("//*[contains(text(), 'Item Preferences')]"); // Example
-    private By continueInItemPreferences = By.xpath("//button[contains(text(), 'Continue')]"); //Refine
-    private By itemPreferencesTickMark = By.xpath("//*[@data-qa='item-preferences-tick']"); //Example
-    private By promoCodeTab = By.xpath("//*[@data-qa='promo-code-tab']"); //Example, refine
-    private By paymentDetailsSection = By.xpath("//*[contains(text(), 'Payment Details')]"); //Example
-    private By placeOrderButton = By.xpath("//button[contains(text(), 'Place Order')]"); //Refine
+    private By continueButton = By.xpath("//button[contains(text(),'Continue')]");
+    //private By fastestDeliveryTimeOption = By.xpath("//label[contains(text(),'Fastest')]"); //Example - needs to be adapted based on the actual UI
+    private By fastestDeliveryTimeOption = By.xpath("(//label[@class='delivery-time-slot'])[1]"); // Selects the first available time slot.
 
     public CheckoutPage(WebDriver driver) {
-//        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
     }
 
+    //Getter Methods
+
     public WebElement getFirstNameField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameField));
+        return driver.findElement(firstNameField);
     }
 
     public WebElement getLastNameField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(lastNameField));
+        return driver.findElement(lastNameField);
     }
 
     public WebElement getStreetAddressField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(streetAddressField));
+        return driver.findElement(streetAddressField);
     }
 
     public WebElement getZipCodeField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(zipCodeField));
+        return driver.findElement(zipCodeField);
     }
 
     public WebElement getContinueButton() {
         return wait.until(ExpectedConditions.elementToBeClickable(continueButton));
     }
-    public WebElement getContinueButton2() {
-        return wait.until(ExpectedConditions.elementToBeClickable(continueButton2));
-    }
-    public WebElement getContinueButton3() {
-        return wait.until(ExpectedConditions.elementToBeClickable(continueButton3));
+
+    public WebElement getFastestDeliveryTimeOption() {
+        return wait.until(ExpectedConditions.elementToBeClickable(fastestDeliveryTimeOption));
     }
 
-    public WebElement getFastestDeliveryTime() {
-        return wait.until(ExpectedConditions.elementToBeClickable(fastestDeliveryTime));
-    }
 
-      public WebElement getContinueInReserveTimeSlot() {
-        return wait.until(ExpectedConditions.elementToBeClickable(continueInReserveTimeSlot));
-    }
-       public WebElement getContinueInItemPreferences() {
-        return wait.until(ExpectedConditions.elementToBeClickable(continueInItemPreferences));
-    }
+    //Action Methods
 
     public void enterFirstName(String firstName) {
         getFirstNameField().sendKeys(firstName);
@@ -94,51 +73,11 @@ public class CheckoutPage {
         getZipCodeField().sendKeys(zipCode);
     }
 
-    public void clickContinueButton(WebDriver driver) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getContinueButton());
+    public void clickContinueButton() {
         getContinueButton().click();
     }
-    public void clickContinueButton2(WebDriver driver) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getContinueButton2());
-        getContinueButton2().click();
-    }
-    public void clickContinueButton3(WebDriver driver) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getContinueButton3());
-        getContinueButton3().click();
-    }
-       public void clickContinueButtonInReserveTimeSlot() {
-        getContinueInReserveTimeSlot().click();
-    }
-          public void clickContinueButtonInItemPreferences() {
-        getContinueInItemPreferences().click();
-    }
+
     public void selectFastestDeliveryTime() {
-        wait.until(ExpectedConditions.visibilityOf(getFastestDeliveryTime()));
-        getFastestDeliveryTime().click();
+        getFastestDeliveryTimeOption().click();
     }
-
-    public boolean isOneHourTimeslotsDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(fastestDeliveryTime)).isDisplayed();
-    }
-
-    public boolean isOrderSummaryDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(orderSummary)).isDisplayed();
-    }
-      public boolean isItemPreferencesSectionDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(itemPreferencesSection)).isDisplayed();
-    }
-    public boolean isPromoCodeTabEnabled() {
-        // Implementation to check if promo code tab is enabled
-        // This might involve checking an attribute like 'disabled' or similar.
-        return true; // Placeholder -  Replace with actual logic
-    }
-
-    public void enterPaymentDetails() {
-        // Implementation for entering payment details.  This could involve interacting with iframes
-        // or other complex elements.
-    }
-    public void clickPlaceOrderButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton)).click();
-    }
-
 }
