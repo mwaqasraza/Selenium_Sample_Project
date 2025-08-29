@@ -1,4 +1,4 @@
-package com.digital.utils;
+package com.digital.util;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
