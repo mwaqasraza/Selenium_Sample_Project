@@ -1,7 +1,7 @@
 package com.digital.ui.pages;
 
 // SignInPage.java
-//package com.safeway.pages;
+package com.nisum.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,40 +16,36 @@ public class SignInPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Global By Locators -  Assuming these are on a separate sign-in page/modal
-    // If they are on the HomePage, move these locators to HomePage class.
-    //private By emailField = By.id("enterEmail"); // Updated ID
-    //private By passwordField = By.id("enterPassword"); // Updated ID
-    private By signInButton = By.id("SignIn"); // Updated ID
+    private final By passwordField = By.xpath("//input[@id='password']");
+    private final By signInButton = By.xpath("//button[text()='Sign In']");
+    private final By broadwayAddressLink = By.xpath("//a[contains(text(),'5100 Broadway')]"); // Example locator
 
     public SignInPage(WebDriver driver) {
-//        this.driver = driver;
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    // Public getter methods
-   /* public WebElement getEmailField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(emailField));
-    }
-
     public WebElement getPasswordField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));
-    }*/
+        return driver.findElement(passwordField);
+    }
 
     public WebElement getSignInButton() {
-        return wait.until(ExpectedConditions.elementToBeClickable(signInButton));
+        return driver.findElement(signInButton);
     }
 
-    // Public action methods
-    /*public void enterEmail(String email) {
-        getEmailField().sendKeys(email);
+    public WebElement getBroadwayAddressLink() {
+        return driver.findElement(broadwayAddressLink);
     }
 
     public void enterPassword(String password) {
         getPasswordField().sendKeys(password);
-    }*/
+    }
 
     public void clickSignInButton() {
         getSignInButton().click();
+    }
+
+    public void clickBroadwayAddressLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(getBroadwayAddressLink())).click();
     }
 }
