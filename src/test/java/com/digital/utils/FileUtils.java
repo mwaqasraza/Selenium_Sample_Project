@@ -1,4 +1,4 @@
-package com.digital.utils;
+package com.digital.util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
