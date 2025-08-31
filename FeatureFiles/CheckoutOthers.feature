@@ -178,6 +178,7 @@ Feature: Checkout items and place order
     #Element - "OrderConfirmation.Title" By xpath - //h1[text()='Order Confirmation']
     #Use explicit wait to check visibility of element located
     #Use the Step Definitions Class "OrderConformationPageSteps" for creating step definitions
+    And order number is dispalyed
 
 
 
