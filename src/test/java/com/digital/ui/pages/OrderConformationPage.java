@@ -1,7 +1,6 @@
 package com.digital.ui.pages;
 
-// OrderConformationPage.java
-//package com.safeway.pages;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,22 +16,23 @@ public class OrderConformationPage {
     private WebDriverWait wait;
 
     // Global By Locators
-    private By title = By.xpath("//h1[text()='Order Confirmation']");
+    private final By title = By.xpath("//h1[text()='Order Confirmation']");
 
     public OrderConformationPage(WebDriver driver) {
-//        this.driver = driver;
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    // Public getter methods
+    // Public getter methods for each element
     public WebElement getTitle() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(title));
+        return driver.findElement(title);
     }
 
-    // Public action methods
+    // Public action methods for page related actions
     public boolean isTitleDisplayed() {
         try {
-            return getTitle().isDisplayed();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(title));
+            return true;
         } catch (Exception e) {
             return false;
         }

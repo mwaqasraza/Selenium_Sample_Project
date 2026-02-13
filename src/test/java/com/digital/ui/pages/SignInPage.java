@@ -1,7 +1,6 @@
 package com.digital.ui.pages;
 
-// SignInPage.java
-//package com.safeway.pages;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,40 +15,39 @@ public class SignInPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Global By Locators -  Assuming these are on a separate sign-in page/modal
-    // If they are on the HomePage, move these locators to HomePage class.
-    //private By emailField = By.id("enterEmail"); // Updated ID
-    //private By passwordField = By.id("enterPassword"); // Updated ID
-    private By signInButton = By.id("SignIn"); // Updated ID
+    // Global By Locators
+    private final By passwordField = By.xpath("//input[@id='j_password']");
+    private final By signInButton = By.xpath("//button[contains(text(),'Sign In')]");
+    private final By broadwayAddress = By.xpath("//span[text()='5100 Broadway']");
 
     public SignInPage(WebDriver driver) {
-//        this.driver = driver;
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    // Public getter methods
-   /* public WebElement getEmailField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(emailField));
-    }
-
+    // Public getter methods for each element
     public WebElement getPasswordField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));
-    }*/
+        return driver.findElement(passwordField);
+    }
 
     public WebElement getSignInButton() {
-        return wait.until(ExpectedConditions.elementToBeClickable(signInButton));
+        return driver.findElement(signInButton);
     }
 
-    // Public action methods
-    /*public void enterEmail(String email) {
-        getEmailField().sendKeys(email);
+    public WebElement getBroadwayAddress() {
+        return driver.findElement(broadwayAddress);
     }
 
+    // Public action methods for page related actions
     public void enterPassword(String password) {
-        getPasswordField().sendKeys(password);
-    }*/
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(password);
+    }
 
     public void clickSignInButton() {
-        getSignInButton().click();
+        wait.until(ExpectedConditions.elementToBeClickable(signInButton)).click();
+    }
+
+    public void clickBroadwayAddress() {
+        wait.until(ExpectedConditions.elementToBeClickable(broadwayAddress)).click();
     }
 }
